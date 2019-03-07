@@ -61,11 +61,17 @@ let digits d =
     count d
 failwith "Not implemented"
 
-let minmax _ =
+let minmax year =
     failwith "Not implemented"
 
-let isLeap _ =
-    failwith "Not implemented"
+let isLeap year =
+    match year < 1582 with 
+    | true -> failwith
+    | _ -> 
+        match (year%4=0)||(year%100=0)||(year%400=0) with 
+        | false -> false  // i dont know whats wrong here
+        | true -> true 
+failwith "Not implemented"
 
 let month _ =
     failwith "Not implemented"
