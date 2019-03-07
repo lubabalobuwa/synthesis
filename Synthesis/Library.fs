@@ -14,14 +14,12 @@ failwith "Not implemented"
 failwith "Not implemented"
 *)
 
-let area = 
-    fun b -> 
-        fun h -> 
-            match b < 0.0 || h<0.0 with
-            | true -> failwith 
-            //| _ -> 0.5 * b * h
-failwith "Not implemented"
+let area b h =
+    match b<0.0 || h<0.0 with
+    | true -> failwith "ShouldFail"
+    | _ -> 0.5 * b * h 
 
+failwith "Not implemented"
 
 let zollo v =
     match v<0 with
@@ -64,20 +62,46 @@ failwith "Not implemented"
 let minmax year =
     failwith "Not implemented"
 
-let isLeap year =
-    match year < 1582 with 
-    | true -> failwith
-    | _ -> 
-        match (year%4=0)||(year%100=0)||(year%400=0) with 
-        | false -> false  // i dont know whats wrong here
-        | true -> true 
+let isLeap year=
+    fun year ->
+        match year < 1582 with 
+        | true -> failwith "Failed"
+        | _ -> 
+            match (year%4=0) || (year%100=0) || (year%400=0) with 
+            | false -> false
+            | true -> true   
 failwith "Not implemented"
 
-let month _ =
-    failwith "Not implemented"
+let month mon = 
+    match (mon<1)||(mon >12) with
+    | true -> failwith "Failed"
+    | _ ->
+        match mon with
+        | 1 -> ("January",31)
+        | 2 -> ("February", 28)
+        | 3 -> ("March", 31)
+        | 4 -> ("April", 30)
+        | 5 -> ("May", 31)
+        | 6 -> ("June", 30)
+        | 7 -> ("July", 31)
+        | 8 -> ("August", 31)
+        | 9 -> ("September", 30)
+        | 10 -> ("October", 31)
+        | 11 -> ("November", 30)
+        | 12 -> ("December", 31)
+        
+failwith "Not implemented"
 
-let toBinary _ =
-    failwith "Not implemented"
+let toBinary binary =
+    let rec result n = 
+        match n>0 with 
+        | false -> 0
+        | _-> 
+            match n/2=0 with
+            | true -> 0
+            | _-> n%2 + result (n/2)
+    result binary
+failwith "Not implemented"
 
 let bizFuzz _ =
     failwith "Not implemented"
