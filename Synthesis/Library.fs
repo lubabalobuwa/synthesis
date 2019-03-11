@@ -41,7 +41,8 @@ let digits d =
             | _ -> 1 + count (n/10)
     count d
 
-let minmax num = (num |> min, num |> max) 
+let minmax (a,b,c,d) =
+    min a b |> min c |> min d, max a b |> max c |> max d
 
 let isLeap y = 
     match y < 1582 with 
