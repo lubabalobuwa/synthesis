@@ -78,22 +78,39 @@ let toBinary num =
                           | 0 -> count (n/2) ("0" + result)  
                           | _ -> count (n/2) ("1" + result) 
                 count num ""
-
-let bizFuzz num =
 (*
-    let three = 0
-    let five =0
-    let both = 0
-    match num < 1 with 
-    | true -> failwith "Negative number"
-    | _-> let rec divide n = 
-              match n = num with 
-              | true -> (three, five, both)
-              | _-> 
+let bizFuzz num =
+    let rec biz n (three, five, both) = 
+        match n>num with 
+        | true -> (three, five, both)
+        | _-> 
+            match n%3=0 with 
+            | true -> (three+1,five,both)
+            | _ ->
+                match n%5=0 with 
+                | true -> (three,five+1,both)
+                | _ -> 
+                    match (n%3=0&&n%5=0) with
+                    | true -> (three,five,both+1)
+                    | _ -> biz (n+1) (three, five, both) 
+    biz 1 (0,0, 0)
     *)
-    failwith "Not implemented"
+let bizFuzz num = 
+    let rec biz n (three, five, both) = 
+        match n>num with 
+        | true -> (three, five, both)
+        |_->
+            match (n%3=0, n%5=0) with
+            | true, true -> biz (n+1) (three+1, five+1, both+1)
+            | false, true -> biz (n+1) (three, five+1, both)
+            | true, false -> biz (n+1) (three+1, five, both)
+            | false, false -> biz (n+1) (three, five, both)
+            | _ -> (0,0,0)
+    biz 1 (0,0,0)
 
-let monthDay _ _ =
+
+let monthDay d y =
+  
     failwith "Not implemented"
 
 let coord _ =
