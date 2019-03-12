@@ -233,7 +233,7 @@ let ``monthDay`` () =
     monthDay 334 2020 |> should equal "November"
     monthDay 335 2020 |> should equal "November"
     monthDay 336 2020 |> should equal "December"
-
+ 
 [<Test>]
 let ``circle`` () =
     let dist = coord >> (fun (x,_) -> x)

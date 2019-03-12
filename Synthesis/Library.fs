@@ -78,40 +78,36 @@ let toBinary num =
                           | 0 -> count (n/2) ("0" + result)  
                           | _ -> count (n/2) ("1" + result) 
                 count num ""
-(*
-let bizFuzz num =
-    let rec biz n (three, five, both) = 
-        match n>num with 
-        | true -> (three, five, both)
-        | _-> 
-            match n%3=0 with 
-            | true -> (three+1,five,both)
-            | _ ->
-                match n%5=0 with 
-                | true -> (three,five+1,both)
-                | _ -> 
-                    match (n%3=0&&n%5=0) with
-                    | true -> (three,five,both+1)
-                    | _ -> biz (n+1) (three, five, both) 
-    biz 1 (0,0, 0)
-    *)
+
 let bizFuzz num = 
     let rec biz n (three, five, both) = 
         match n>num with 
         | true -> (three, five, both)
-        |_->
-            match (n%3=0, n%5=0) with
-            | true, true -> biz (n+1) (three+1, five+1, both+1)
-            | false, true -> biz (n+1) (three, five+1, both)
-            | true, false -> biz (n+1) (three+1, five, both)
-            | false, false -> biz (n+1) (three, five, both)
-            | _ -> (0,0,0)
+        |_-> match (n%3=0, n%5=0) with
+             | true, true -> biz (n+1) (three+1, five+1, both+1)
+             | false, true -> biz (n+1) (three, five+1, both)
+             | true, false -> biz (n+1) (three+1, five, both)
+             | false, false -> biz (n+1) (three, five, both)
+             | _ -> (0,0,0)
     biz 1 (0,0,0)
 
-
-let monthDay d y =
-  
-    failwith "Not implemented"
+let monthDay d year = 
+    let leap, range = isLeap year, 366
+    match (d<1 || d>range) with 
+    | true -> failwith "Out of Range"
+    |_-> let rec mnth dd count = 
+            match count =13 with 
+            | true -> "December"
+            | _-> 
+                let name,days = month count
+                let CheckFeb = 
+                    match (leap = true, name="February") with 
+                    | true,true -> days+1    
+                    | _-> days
+                match (dd - days)<=0 with
+                | false -> mnth (dd-days) (count+1)
+                | _-> name
+         mnth d 1
 
 let coord _ =
     failwith "Not implemented"
